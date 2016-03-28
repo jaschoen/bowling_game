@@ -1,4 +1,6 @@
 class Game
+
+  FRAMES = 10
   
   def initialize
     @throws = []
@@ -11,19 +13,17 @@ class Game
   def score
     score = 0
     i     = 0
-    10.times do
+    FRAMES.times do
       if strike?(i)
-        score += (10 + @throws[i+1] + @throws[i+2]) 
+        score += strike_score(i)
         i += 1
       elsif spare?(i)
-        score += (10 + @throws[i+2])
+        score += spare_score(i)
         i += 2
       else
-        score += (@throws[i] + @throws[i + 1])
+        score += regular_score(i)
         i += 2
       end
-      # puts "score: #{score}"
-      # score
     end
     score
   end
@@ -36,14 +36,20 @@ class Game
     @throws[i]== 10
   end
 
+  def regular_score(i)
+    @throws[i] + @throws[i+1]
+  end
+
+  def spare_score(i)
+    10 + @throws[i+2]
+  end
+
+  def strike_score(i)
+    10 + @throws[i+1] + @throws[i+2]
+  end
+
 end
 
-# g = Game.new
-# g.roll(5)
-# g.roll(5)
-# g.roll(3)
-# 17.times {g.roll(0)}
-# puts "score: #{g.score}"
 
 
 
