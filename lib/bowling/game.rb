@@ -1,25 +1,44 @@
 class Game
+  
   def initialize
-    @score        = 0
-    @rolls        = []
-    @shot         = 1
-    @spare        = false
-
+    @throws = []
   end
 
   def roll(pins)
-    @rolls << pins
+    @throws << pins
   end
 
   def score
-    @rolls.each do |roll|
-      @score += roll
-      
+    score = 0
+    i     = 0
+    10.times do
+      if spare?(i)
+        score += (10 + @throws[i+2])
+        i += 2
+      else
+        score += (@throws[i] + @throws[i + 1])
+        i += 2
+      end
+      # puts "score: #{score}"
+      # score
     end
-
-    @score
+    score
   end
+
+  def spare?(i)
+    (@throws[i] + @throws[i + 1]) == 10
+  end
+
+  
+
 end
+
+# g = Game.new
+# g.roll(5)
+# g.roll(5)
+# g.roll(3)
+# 17.times {g.roll(0)}
+# puts "score: #{g.score}"
 
 
 
