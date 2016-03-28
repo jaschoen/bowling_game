@@ -12,7 +12,10 @@ class Game
     score = 0
     i     = 0
     10.times do
-      if spare?(i)
+      if strike?(i)
+        score += (10 + @throws[i+1] + @throws[i+2]) 
+        i += 1
+      elsif spare?(i)
         score += (10 + @throws[i+2])
         i += 2
       else
@@ -29,7 +32,9 @@ class Game
     (@throws[i] + @throws[i + 1]) == 10
   end
 
-  
+  def strike?(i)
+    @throws[i]== 10
+  end
 
 end
 

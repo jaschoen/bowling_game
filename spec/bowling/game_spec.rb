@@ -30,7 +30,12 @@ describe Game do
     game.roll(3)
     game.roll(4)
     roll_many(17, 0)
-    expect game.score.to eq(24)
+    expect(game.score).to eq(24)
+  end
+
+  it 'scores a perfect game' do
+    roll_many(22, 10)
+    expect(game.score).to eq(300)
   end
 
 end
